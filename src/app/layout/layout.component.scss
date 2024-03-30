@@ -1,25 +1,26 @@
- //@import '@taiga-ui/core/styles/taiga-ui-local.less';
+//@import '@taiga-ui/core/styles/taiga-ui-local.less';
 
 #nav {
-     position: fixed;
-     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    display: flex;
-    box-shadow: var(--tui-shadow-navigation);
-    height: 3.9375rem;
-    align-items: center;
-    padding: 0 1.25rem;
-    background: var(--tui-base-01);
-    border-bottom: 1px solid var(--tui-base-03);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  box-shadow: var(--tui-shadow-navigation);
+  height: 3.9375rem;
+  align-items: center;
+  padding: 0 1.25rem;
+  background: var(--tui-base-01);
+  border-bottom: 1px solid var(--tui-base-03);
 }
-   
+
 #logo {
-    margin-right: auto;
-    font: var(--tui-font-heading-5);
+  margin-right: auto;
+  font: var(--tui-font-heading-5);
 }
 
 main {
-   margin-top: var(--tui-space_top-4);
+  width: 100%;
+  height: 100%;
 }

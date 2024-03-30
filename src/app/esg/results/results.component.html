@@ -1,6 +1,17 @@
-<h1>ESG Results</h1>
+<div class="container mx-auto flex flex-col justify-center h-full">
+  <h1 class="mb-2 text-7xl font-medium text-gray-900 pl-4">ESG Results</h1>
+  <p class="mb-10 pl-4">
+    Take the ESG Questionarre to discover your companies ESG rating
+  </p>
 
-<div *ngIf="!esgResults">
-    <p>No Results</p>
-    <button>Take</button>
+  <div *ngIf="!esgResults" class="flex flex-col items-center space-y-6">
+    <h2 class="text-xl">No Results</h2>
+    <div class="bg-gray-100 w-32 h-32 rounded-full">
+      <tui-svg src="tuiIconAddRowLarge"></tui-svg>
+    </div>
+
+    <button tuiButton size="m" [routerLink]="['/form']">
+      Take Questionare
+    </button>
+  </div>
 </div>

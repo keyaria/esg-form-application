@@ -3,13 +3,19 @@ import { LayoutComponent } from './layout/layout.component';
 import { ResultsComponent } from './esg/results/results.component';
 import { FormComponent } from './esg/form/form.component';
 
-export const routes: Routes = [{ path: '', component: LayoutComponent, children: [
-    {
+export const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
         path: 'results',
-        component: ResultsComponent
-    },
-    {
+        component: ResultsComponent,
+      },
+      {
         path: 'form',
-        component: FormComponent
-    }
-]}];
+        component: FormComponent,
+      },
+    ],
+  },
+];
