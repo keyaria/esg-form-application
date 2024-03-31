@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  TuiButtonModule,
   TuiDataListDirective,
   TuiDataListModule,
   TuiErrorModule,
@@ -27,6 +28,7 @@ import {
   TuiStepperModule,
 } from '@taiga-ui/kit';
 import { EmissionsQuestionComponent } from './emissions-question/emissions-question.component';
+import { EmissionsConfirmComponent } from './emissions-confirm/emissions-confirm.component';
 
 @Component({
   selector: 'app-form',
@@ -52,6 +54,8 @@ import { EmissionsQuestionComponent } from './emissions-question/emissions-quest
     AsyncPipe,
     CommonModule,
     EmissionsQuestionComponent,
+    TuiButtonModule,
+    EmissionsConfirmComponent,
   ],
 })
 export class FormComponent {
@@ -90,11 +94,11 @@ export class FormComponent {
       validate: this.shouldValidate,
     },
   ];
-  items = [{ name: 'tariff1' }, { name: 'tariff2' }, { name: 'tariff3' }];
 
   public form = new FormGroup({
     Question1Details: new FormGroup({
-      verifierValue: new FormControl(this.items[0], Validators.required),
+      verifierValue: new FormControl('', [Validators.required]),
+      verifierValueText: new FormControl(''),
       standardValue: new FormControl(''),
       assuranceValue: new FormControl(''),
       scopeValue1: new FormControl(false),
@@ -103,7 +107,8 @@ export class FormComponent {
     }),
     // While they are using same setup, this is example if Question 2 was different
     Question2Details: new FormGroup({
-      verifierValue: new FormControl('', Validators.required),
+      verifierValue: new FormControl('', [Validators.required]),
+      verifierValueText: new FormControl(''),
       standardValue1: new FormControl(''),
       assuranceValue: new FormControl(''),
       scopeValue1: new FormControl(false),
@@ -111,24 +116,7 @@ export class FormComponent {
       disclosureValue: new FormControl(null),
     }),
   });
-  // testForm = new FormGroup({
-  //   nameValue: new FormControl('', Validators.required),
-  //   textValue: new FormControl('', Validators.required),
-  //   passwordValue: new FormControl('', Validators.required),
-  //   phoneValue: new FormControl('', Validators.required),
-  //   moneyValue: new FormControl('100', Validators.required),
-  //   quantityValue: new FormControl(50_000, Validators.required),
-  //   radioValue: new FormControl('with-commission'),
-  //   accountWherefrom: new FormControl(null),
-  //   accountWhere: new FormControl(null),
-  //   checkboxValue: new FormControl(false),
-  //   osnoValue: new FormControl(false),
-  //   usnValue: new FormControl(false),
-  //   eshnValue: new FormControl(false),
-  //   envdValue: new FormControl(false),
-  //   usn2Value: new FormControl(false),
-  //   patentValue: new FormControl(false),
-  // });
+
   public get currentGroup(): FormGroup {
     return this.getGroupAt(this.currentStep);
   }
@@ -145,6 +133,16 @@ export class FormComponent {
 
     this.currentGroup.markAllAsTouched();
     //    this.stepper.validateSteps();
+  }
+
+  public submit(): void {
+    if (!this.currentGroup.valid) {
+      this.currentGroup.markAllAsTouched();
+      // this.stepper.validateSteps();
+    }
+    if (this.form.valid) {
+      console.log('Submitted data', this.form.value);
+    }
   }
 
   private getGroupAt(index: number): FormGroup {

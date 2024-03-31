@@ -27,6 +27,30 @@
     [Question1Details]="currentGroup"
   >
   </app-emissions-question>
+  <app-emissions-question
+    *ngIf="currentStep === 1"
+    [Question2Details]="currentGroup"
+  >
+  </app-emissions-question>
+  <app-emissions-confirm *ngIf="currentStep === 2" [form]="form">
+  </app-emissions-confirm>
+
+  <div>
+    <button class="prev" tuiButton *ngIf="currentStep !== 0" (click)="prev()">
+      Previous
+    </button>
+    <button tuiButton size="m" (click)="next()" *ngIf="currentStep !== 2">
+      Next
+    </button>
+    <button
+      tuiButton
+      themeColor="primary"
+      (click)="submit()"
+      *ngIf="currentStep === 2"
+    >
+      Submit
+    </button>
+  </div>
   Assurance: {{ form.value.Question1Details?.assuranceValue }}
 
   Scope Value1: {{ form.value.Question1Details?.scopeValue1 }} Scope Value3:
