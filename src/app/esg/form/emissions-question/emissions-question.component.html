@@ -1,0 +1,67 @@
+<ng-container [formGroup]="Question1Details">
+  <div class="tui-col_8">
+    <h3 class="tui-form__header tui-form__header_margin-top_none">
+      Question 1: Does the company obtain independent, third-party verification
+      for its emissions data? If so, to what level of assurance?
+    </h3>
+    <div class="tui-form__row">
+      Verifier:
+      <tui-radio-labeled
+        formControlName="verifierValue"
+        class="tui-space_bottom-3"
+        item="Yes"
+      >
+        Yes
+        <tui-input formControlName="verifierValue" tuiHintContent="A tooltip">
+          If Yes, who:
+
+          <input placeholder="Field placeholder" tuiTextfield />
+          <span class="tui-required"></span>
+        </tui-input>
+        <tui-error
+          formControlName="verifierValue"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </tui-radio-labeled>
+      <tui-radio-labeled
+        formControlName="verifierValue"
+        class="tui-space_bottom-3"
+        item="No"
+      >
+        No
+      </tui-radio-labeled>
+    </div>
+    <label>
+      Assurance Level
+
+      <tui-select formControlName="assuranceValue" class="tui-space_bottom-4">
+        Choose Level
+        <tui-data-list *tuiDataList>
+          <button tuiOption value="Limited assurance">Limited assurance</button>
+          <button
+            tuiOption
+            value="Reasonable
+                    assurance"
+          >
+            Reasonable assurance
+          </button>
+        </tui-data-list>
+      </tui-select>
+    </label>
+    <!-- Scope -->
+    <div class="tui-form__row">
+      Scope Verified:
+      <tui-checkbox-labeled formControlName="scopeValue1" size="m">
+        Scope 1 and/or 2
+      </tui-checkbox-labeled>
+      <tui-checkbox-labeled
+        formControlName="scopeValue3"
+        size="m"
+        class="tui-space_top-5"
+      >
+        Scope 3
+      </tui-checkbox-labeled>
+    </div>
+  </div>
+</ng-container>
+<h3>Question 1:</h3>

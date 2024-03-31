@@ -1,0 +1,34 @@
+<div class="tui-container mt-20">
+  <h1 class="mb-2 text-6xl font-light text-gray-900 pl-4">
+    Emissions Data Verification
+  </h1>
+
+  <div class="stepper flex">
+    <!-- For Loop would work but this specific component does not allow-->
+    <tui-stepper [activeItemIndex]="currentStep" #stepper>
+      <button tuiStep (click)="next()">
+        {{ steps[0].label }}
+      </button>
+
+      <button tuiStep>
+        {{ steps[1].label }}
+      </button>
+      <button tuiStep>
+        {{ steps[2].label }}
+      </button>
+      <button tuiStep>
+        {{ steps[3].label }}
+      </button>
+    </tui-stepper>
+  </div>
+
+  <app-emissions-question
+    *ngIf="currentStep === 0"
+    [Question1Details]="currentGroup"
+  >
+  </app-emissions-question>
+  Assurance: {{ form.value.Question1Details?.assuranceValue }}
+
+  Scope Value1: {{ form.value.Question1Details?.scopeValue1 }} Scope Value3:
+  {{ form.value.Question1Details?.scopeValue3 }}
+</div>
