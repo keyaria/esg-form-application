@@ -33,6 +33,7 @@
         borders="top-bottom"
         [showArrow]="false"
         *ngFor="let todo of todos"
+        class="my-2"
       >
         <span class="flex justify-between">
           <p>{{ todo.date.seconds * 1000 | date }}</p>
@@ -40,17 +41,29 @@
         </span>
         <ng-template tuiAccordionItemContent>
           <h3 class="tui-form__header">Detailed Results</h3>
-          <div>
-            <h3>Question 1</h3>
-            <p>Verifier: {{ todo.question1.verifier }}</p>
-            <p>
-              Verification Standard: {{ todo.question1.verificationStandard }}
-            </p>
-            <p>Assurance Level: {{ todo.question1.assuranceLevel }}</p>
-            <p>Scope Verified: {{ todo.question1.scopeVerified }}</p>
-            <p>Disclosure: {{ todo.question1.disclosure }}</p>
+          <div class="flex flex-row justify-between">
+            <div>
+              <h3 class="font-semibold">Question 1</h3>
+              <p>Verifier: {{ todo.question1.verifier }}</p>
+              <p>
+                Verification Standard: {{ todo.question1.verificationStandard }}
+              </p>
+              <p>Assurance Level: {{ todo.question1.assuranceLevel }}</p>
+              <p>Scope Verified: {{ todo.question1.scopeVerified }}</p>
+              <p>Disclosure: {{ todo.question1.disclosure }}</p>
+            </div>
+            <div>
+              <h3 class="font-semibold">Question 2</h3>
+              <p>Verifier: {{ todo.question2.verifier }}</p>
+              <p>
+                Verification Standard: {{ todo.question2.verificationStandard }}
+              </p>
+              <p>Assurance Level: {{ todo.question2.assuranceLevel }}</p>
+              <p>Scope Verified: {{ todo.question2.scopeVerified }}</p>
+              <p>Disclosure: {{ todo.question2.disclosure }}</p>
+            </div>
           </div>
-          <p>{{ todos[0] | json }}</p>
+          <!-- <p>{{ todos[0] | json }}</p> -->
         </ng-template>
       </tui-accordion-item>
     </tui-accordion>
