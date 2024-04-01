@@ -28,6 +28,8 @@ import {
 } from '@taiga-ui/kit';
 import { Observable, Subject, finalize, map, of, switchMap, timer } from 'rxjs';
 import { ResultsService } from '../../../services/esgResult.service';
+import { ResultsFirebaseService } from '../../../services/esgFirebase.service';
+import { FileUpload } from '../../../../types/result.interface';
 
 @Component({
   selector: 'app-emissions-question',
@@ -59,20 +61,25 @@ export class EmissionsQuestionComponent {
   @Input()
   public Question2Details: FormGroup;
 
+  // Monitor file Changes
   readonly control = new FormControl();
 
   @Input()
   public items: any;
 
+  // File Handling
   rejectedFiles: readonly TuiFileLike[] = [];
   resultsService = inject(ResultsService);
+  resultsFirebaseService = inject(ResultsFirebaseService);
+  currentFileUpload?: FileUpload;
+  percentage = 0;
 
   ngOnInit(): void {
     this.control.statusChanges.subscribe((response) => {
-      console.info('STATUS', this.control.value[0]);
-      this.resultsService.disclosureFile.set(this.control.value[0]);
       console.info('STATUS', response);
       console.info('ERRORS', this.control.errors, '\n');
+
+      this.resultsService.disclosureFile.set(this.control.value[0]);
     });
   }
 
@@ -85,6 +92,27 @@ export class EmissionsQuestionComponent {
       this.control.value?.filter((current: File) => current.name !== name) ??
         [],
     );
+  }
+
+  //uploading to FireStore
+  upload(): void {
+    if (this.control.value[0]) {
+      const file: File | null = this.control.value[0];
+
+      if (file) {
+        this.currentFileUpload = new FileUpload(file);
+        this.resultsFirebaseService
+          .pushFileToStorage(this.control.value[0])
+          .subscribe(
+            (percentage) => {
+              this.percentage = Math.round(percentage ? percentage : 0);
+            },
+            (error) => {
+              console.log(error);
+            },
+          );
+      }
+    }
   }
 
   clearRejected({ name }: TuiFileLike): void {

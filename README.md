@@ -20,8 +20,7 @@ Site can be found here: https://esg-application-d0e55.web.app/
 2. Firebase / FireStore
    - I made assumption that users would want to see all past results so instead of saving this in localStorage, FireStore provides a more optimal solution, while being scalable and easy to use. Firebase now handles all the infrastructure and the Backend Database.
 3. Deploying
-
-- To make it accessible for everyone, the site is hosted through Firebase Hosting. A deployment pipeline is set up so the site is built and deployed after merging a commit to the main branch.
+   - To make it accessible for everyone, the site is hosted through Firebase Hosting. A deployment pipeline is set up so the site is built and deployed after merging a commit to the main branch.
 
 ## Assumptions
 

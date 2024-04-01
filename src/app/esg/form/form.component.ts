@@ -149,9 +149,6 @@ export class FormComponent {
   }
 
   public submit(): void {
-    if (this.form.valid) {
-    }
-
     this.question1 = this.getPoints(this.form.value.Question1Details);
     this.question2 = this.getPoints(this.form.value.Question2Details);
 
