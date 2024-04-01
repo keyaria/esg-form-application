@@ -1,4 +1,4 @@
-<div class="tui-container mt-20">
+<div class="tui-container mt-20 bg-white">
   <h1 class="mb-2 text-6xl font-light text-gray-900 pl-4">
     Emissions Data Verification
   </h1>
@@ -6,17 +6,17 @@
   <div class="stepper flex">
     <!-- For Loop would work but this specific component does not allow-->
     <tui-stepper [activeItemIndex]="currentStep" #stepper>
-      <button tuiStep (click)="next()">
+      <button tuiStep>
         {{ steps[0].label }}
       </button>
 
-      <button tuiStep>
+      <button tuiStep [disabled]="currentStep !== 1">
         {{ steps[1].label }}
       </button>
-      <button tuiStep>
+      <button tuiStep [disabled]="currentStep !== 2">
         {{ steps[2].label }}
       </button>
-      <button tuiStep>
+      <button tuiStep [disabled]="currentStep !== 3">
         {{ steps[3].label }}
       </button>
     </tui-stepper>
@@ -34,12 +34,29 @@
   </app-emissions-question>
   <app-emissions-confirm *ngIf="currentStep === 2" [form]="form">
   </app-emissions-confirm>
-
-  <div>
-    <button class="prev" tuiButton *ngIf="currentStep !== 0" (click)="prev()">
+  <app-emissions-result
+    *ngIf="currentStep === 3"
+    [question1Results]="question1"
+    [question2Results]="question2"
+  >
+  </app-emissions-result>
+  <div class="tui-form__buttons tui-form__buttons_align_end">
+    <button
+      class="prev tui-form__button"
+      tuiButton
+      *ngIf="currentStep !== 0 && currentStep !== 3"
+      (click)="prev()"
+      size="m"
+    >
       Previous
     </button>
-    <button tuiButton size="m" (click)="next()" *ngIf="currentStep !== 2">
+    <button
+      tuiButton
+      size="m"
+      (click)="next()"
+      *ngIf="currentStep !== 2 && currentStep !== 3"
+      class="tui-form__button"
+    >
       Next
     </button>
     <button
@@ -47,6 +64,8 @@
       themeColor="primary"
       (click)="submit()"
       *ngIf="currentStep === 2"
+      size="m"
+      class="tui-form__button"
     >
       Submit
     </button>

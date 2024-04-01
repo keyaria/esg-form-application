@@ -29,6 +29,7 @@ import {
 } from '@taiga-ui/kit';
 import { EmissionsQuestionComponent } from './emissions-question/emissions-question.component';
 import { EmissionsConfirmComponent } from './emissions-confirm/emissions-confirm.component';
+import { EmissionsResultComponent } from './emissions-result/emissions-result.component';
 
 @Component({
   selector: 'app-form',
@@ -56,10 +57,14 @@ import { EmissionsConfirmComponent } from './emissions-confirm/emissions-confirm
     EmissionsQuestionComponent,
     TuiButtonModule,
     EmissionsConfirmComponent,
+    EmissionsResultComponent,
   ],
 })
 export class FormComponent {
   public currentStep = 0;
+
+  public question1 = 0;
+  public question2 = 0;
 
   @ViewChild('stepper', { static: true })
   public stepper!: TuiStepperComponent;
@@ -136,15 +141,30 @@ export class FormComponent {
   }
 
   public submit(): void {
-    if (!this.currentGroup.valid) {
-      this.currentGroup.markAllAsTouched();
-      // this.stepper.validateSteps();
-    }
+    // if (!this.currentGroup.valid) {
+    //   this.currentGroup.markAllAsTouched();
+    //   // this.stepper.validateSteps();
+    // }
     if (this.form.valid) {
       console.log('Submitted data', this.form.value);
     }
+    this.question1 = this.getPoints(this.form.value.Question1Details);
+    this.question2 = this.getPoints(this.form.value.Question2Details);
+
+    this.currentStep += 1;
   }
 
+  public getPoints(values: any): number {
+    if (values.verifierValue === 'No' || values.disclosureValue === null) {
+      return 0;
+    } else if (values.standardValue && values.assuranceValue!.length < 1) {
+      return 2;
+    } else if (values.scopeValue1 === true) {
+      return 3.5;
+    } else {
+      return 5;
+    }
+  }
   private getGroupAt(index: number): FormGroup {
     const groups = Object.keys(this.form.controls).map((groupName) =>
       this.form.get(groupName),

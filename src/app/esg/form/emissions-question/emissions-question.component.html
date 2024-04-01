@@ -1,20 +1,22 @@
 <ng-container
   [formGroup]="Question1Details ? Question1Details : Question2Details"
 >
-  <div class="tui-col_8">
-    <h3 class="tui-form__header tui-form__header_margin-top_none">
-      Question {{ Question1Details ? 1 : 2 }} : Does the company obtain
+  <div class="tui-col_12">
+    <h3 class="tui-form__header">
+      Question {{ Question1Details ? 1 : 2 }}: Does the company obtain
       independent, third-party verification for its emissions data? If so, to
       what level of assurance?
     </h3>
 
     <div class="tui-form__row">
-      <span class="tui-required"></span>
-      Verifier:
+      <h4 class="text-lg pb-3">
+        Verifier <span class="tui-required text-red-600"></span>:
+      </h4>
       <tui-radio-labeled
         formControlName="verifierValue"
         class="tui-space_bottom-3"
         item="Yes"
+        size="l"
       >
         Yes
         <tui-input
@@ -30,6 +32,7 @@
         formControlName="verifierValue"
         class="tui-space_bottom-3"
         item="No"
+        size="l"
       >
         No
       </tui-radio-labeled>
@@ -39,8 +42,9 @@
         [error]="[] | tuiFieldError | async"
       ></tui-error>
     </div>
+    <!-- Assurance Level-->
     <label>
-      Assurance Level
+      <p class="text-lg">Assurance Level</p>
 
       <tui-select formControlName="assuranceValue" class="tui-space_bottom-4">
         Choose Level
@@ -58,13 +62,13 @@
     </label>
     <!-- Scope -->
     <div class="tui-form__row">
-      Scope Verified:
-      <tui-checkbox-labeled formControlName="scopeValue1" size="m">
+      <p class="text-lg pb-3">Scope Verified:</p>
+      <tui-checkbox-labeled formControlName="scopeValue1" size="l">
         Scope 1 and/or 2
       </tui-checkbox-labeled>
       <tui-checkbox-labeled
         formControlName="scopeValue3"
-        size="m"
+        size="l"
         class="tui-space_top-5"
       >
         Scope 3
@@ -72,37 +76,44 @@
     </div>
 
     <!-- Disclosure Location-->
-    <div class="tui-form__row">
-      <tui-input-files
-        accept="application/pdf"
-        [formControl]="control"
-        [multiple]="true"
-        (ngModelChange)="control.markAsTouched()"
-        (reject)="onReject($event)"
-      ></tui-input-files>
+    <label tuiLabel="Disclosure Location">
+      <p class="text-lg pt-3">Disclosure Location</p>
+      <div class="tui-form__row">
+        <tui-input formControlName="disclosureValue" tuiHintContent="A tooltip">
+          Link
+          <input placeholder="Field placeholder" tuiTextfield />
+        </tui-input>
+        <tui-input-files
+          accept="application/pdf"
+          [formControl]="control"
+          [multiple]="true"
+          (ngModelChange)="control.markAsTouched()"
+          (reject)="onReject($event)"
+        ></tui-input-files>
 
-      <tui-files class="tui-space_top-1">
-        <tui-file
-          *ngFor="let file of control.valueChanges | async"
-          [file]="file"
-          [showDelete]="control.enabled"
-          (removed)="removeFile(file)"
-        ></tui-file>
+        <tui-files class="tui-space_top-1">
+          <tui-file
+            *ngFor="let file of control.valueChanges | async"
+            [file]="file"
+            [showDelete]="control.enabled"
+            (removed)="removeFile(file)"
+          ></tui-file>
 
-        <tui-file
-          *ngFor="let file of rejectedFiles"
-          state="error"
-          [file]="file"
-          [showDelete]="control.enabled"
-          (removed)="clearRejected(file)"
-        ></tui-file>
-      </tui-files>
+          <tui-file
+            *ngFor="let file of rejectedFiles"
+            state="error"
+            [file]="file"
+            [showDelete]="control.enabled"
+            (removed)="clearRejected(file)"
+          ></tui-file>
+        </tui-files>
 
-      <tui-error
-        [error]="['maxLength'] | tuiFieldError | async"
-        [formControl]="control"
-      ></tui-error>
-      <!-- here: {{control | json }} -->
-    </div>
+        <tui-error
+          [error]="['maxLength'] | tuiFieldError | async"
+          [formControl]="control"
+        ></tui-error>
+        <!-- here: {{control | json }} -->
+      </div>
+    </label>
   </div>
 </ng-container>
