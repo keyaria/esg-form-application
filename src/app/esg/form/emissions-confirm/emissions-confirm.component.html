@@ -1,5 +1,5 @@
-<div>
-  <h3>Question 1</h3>
+<div class="pt-4">
+  <h3 class="text-semibold">Question 1</h3>
   <p class="text-gray-800 text-bold">
     Verifier:
     {{
@@ -22,7 +22,35 @@
     {{ form.value.Question1Details.scopeValue1 && "Scope 1 and/or 2" }}
     {{ form.value.Question1Details.scopeValue3 }}
   </p>
-  <p class="text-red-800 text-bold">
+  <p class="text-gray-800 text-bold">
     Document: {{ form.value.Question1Details.disclosureValue }}
+  </p>
+</div>
+<div class="pt-4">
+  <h3 class="text-semibold">Question 2</h3>
+  <p class="text-gray-800 text-bold">
+    Verifier:
+    {{
+      form.value.Question2Details.verifierValue.length !== 0
+        ? form.value.Question2Details.verifierValue
+        : "None"
+    }}
+    {{ form.value.Question2Details.verifierValueText }}
+  </p>
+  <p class="text-gray-800 text-bold">
+    Verification Standard : {{ form.value.Question2Details.standardValue }}
+    {{ form.value.Question2Details.standardValueOther }}
+    {{ form.value.Question2Details.standardValueOtherText }}
+  </p>
+  <p class="text-gray-800 text-bold">
+    Assurance Level: {{ form.value.Question2Details.assuranceValue }}
+  </p>
+  <p class="text-gray-800 text-bold">
+    Scope Verified:
+    {{ form.value.Question2Details.scopeValue1 && "Scope 1 and/or 2" }}
+    {{ form.value.Question2Details.scopeValue3 }}
+  </p>
+  <p class="text-gray-800 text-bold">
+    Document: {{ form.value.Question2Details.disclosureValue }}
   </p>
 </div>

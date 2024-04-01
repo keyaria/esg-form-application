@@ -146,19 +146,20 @@ export class FormComponent {
     }
 
     this.currentGroup.markAllAsTouched();
-    //    this.stepper.validateSteps();
   }
 
   public submit(): void {
     if (this.form.valid) {
-      console.log('Submitted data', this.form.value);
     }
+
     this.question1 = this.getPoints(this.form.value.Question1Details);
     this.question2 = this.getPoints(this.form.value.Question2Details);
 
     this.addResult();
     this.currentStep += 1;
   }
+
+  // Add To Firebase Database
   addResult(): void {
     this.resultsFirebaseService
       .addResult(this.form, this.question1, this.question2)
@@ -171,6 +172,7 @@ export class FormComponent {
         );
       });
   }
+
   getPoints(values: any): number {
     if (values.verifierValue === 'No' || values.disclosureValue === null) {
       return 0;
@@ -182,6 +184,7 @@ export class FormComponent {
       return 5;
     }
   }
+
   private getGroupAt(index: number): FormGroup {
     const groups = Object.keys(this.form.controls).map((groupName) =>
       this.form.get(groupName),

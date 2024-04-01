@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   NgModule,
+  inject,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -26,6 +27,7 @@ import {
   TuiSelectModule,
 } from '@taiga-ui/kit';
 import { Observable, Subject, finalize, map, of, switchMap, timer } from 'rxjs';
+import { ResultsService } from '../../../services/esgResult.service';
 
 @Component({
   selector: 'app-emissions-question',
@@ -63,9 +65,12 @@ export class EmissionsQuestionComponent {
   public items: any;
 
   rejectedFiles: readonly TuiFileLike[] = [];
+  resultsService = inject(ResultsService);
 
   ngOnInit(): void {
     this.control.statusChanges.subscribe((response) => {
+      console.info('STATUS', this.control.value[0]);
+      this.resultsService.disclosureFile.set(this.control.value[0]);
       console.info('STATUS', response);
       console.info('ERRORS', this.control.errors, '\n');
     });

@@ -16,6 +16,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { FormGroup } from '@angular/forms';
+import { getText } from '../helpers/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class ResultsFirebaseService {
@@ -26,16 +27,6 @@ export class ResultsFirebaseService {
     return collectionData(this.resultsCollection, {
       idField: 'id',
     }) as Observable<ResultsInterface[]>;
-  }
-
-  getText(details: any) {
-    const standardValue = details.standardValue ? 'ISO 14064-3' : '';
-    let standardValueOther = '';
-    if (details.standardValueOther === true) {
-      standardValueOther = details.standardValueOtherText;
-    }
-
-    return [standardValue, standardValueOther];
   }
 
   addResult(
@@ -49,7 +40,7 @@ export class ResultsFirebaseService {
         verifier:
           form.value.Question1Details.verifierValue +
           form.value.Question1Details.verifierValueText,
-        verificationStandard: this.getText(form.value.Question1Details),
+        verificationStandard: getText(form.value.Question1Details),
         assuranceLevel: form.value.Question1Details.assuranceValue,
         scopeVerified: [
           form.value.Question1Details.scopeValue1,
@@ -61,7 +52,7 @@ export class ResultsFirebaseService {
         verifier:
           form.value.Question2Details.verifierValue +
           form.value.Question2Details.verifierValueText,
-        verificationStandard: this.getText(form.value.Question2Details),
+        verificationStandard: getText(form.value.Question2Details),
         assuranceLevel: form.value.Question2Details.assuranceValue,
         scopeVerified: [
           form.value.Question2Details.scopeValue1,

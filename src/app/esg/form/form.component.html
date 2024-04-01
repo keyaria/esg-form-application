@@ -1,104 +1,80 @@
-<div class="mt-20 grid grid-flow-col grid-cols-6">
-  <div class="bg-white md:grid-cols-3">
-    <div class="stepper flex">
-      <!-- For Loop would work but this specific component does not allow-->
-      <tui-stepper
-        [activeItemIndex]="currentStep"
-        #stepper
-        orientation="vertical"
-        class="m-auto"
-      >
-        <button tuiStep>
-          {{ steps[0].label }}
-        </button>
+<div class="my-20">
+  <div class="bg-slate-50">
+    <div class="tui-container p-12 mx-auto bg-white shadow">
+      <div class="stepper flex flex-col md:flex-row md:justify-between">
+        <h1 class="mb-2 text-4xl text-gray-900">Emissions Data Verification</h1>
+        <!-- For Loop would work but this specific component does not allow-->
+        <tui-stepper [activeItemIndex]="currentStep" #stepper>
+          <button tuiStep [disabled]="currentStep !== 0">
+            {{ steps[0].label }}
+          </button>
 
-        <button tuiStep [disabled]="currentStep !== 1">
-          {{ steps[1].label }}
+          <button tuiStep [disabled]="currentStep !== 1">
+            {{ steps[1].label }}
+          </button>
+          <button tuiStep [disabled]="currentStep !== 2">
+            {{ steps[2].label }}
+          </button>
+          <button tuiStep [disabled]="currentStep !== 3">
+            {{ steps[3].label }}
+          </button>
+        </tui-stepper>
+      </div>
+
+      <app-emissions-question
+        *ngIf="currentStep === 0"
+        [Question1Details]="currentGroup"
+      >
+      </app-emissions-question>
+      <app-emissions-question
+        *ngIf="currentStep === 1"
+        [Question2Details]="currentGroup"
+      >
+      </app-emissions-question>
+      <app-emissions-confirm *ngIf="currentStep === 2" [form]="form">
+      </app-emissions-confirm>
+      <app-emissions-result
+        *ngIf="currentStep === 3"
+        [question1Results]="question1"
+        [question2Results]="question2"
+      >
+      </app-emissions-result>
+      <div class="tui-form__buttons tui-form__buttons_align_end">
+        <button
+          class="prev tui-form__button"
+          tuiButton
+          *ngIf="currentStep !== 0 && currentStep !== 3"
+          (click)="prev()"
+          size="m"
+        >
+          Previous
         </button>
-        <button tuiStep [disabled]="currentStep !== 2">
-          {{ steps[2].label }}
+        <button
+          tuiButton
+          size="m"
+          (click)="next()"
+          *ngIf="currentStep !== 2 && currentStep !== 3"
+          class="tui-form__button"
+        >
+          Next
         </button>
-        <button tuiStep [disabled]="currentStep !== 3">
-          {{ steps[3].label }}
+        <button
+          tuiButton
+          themeColor="primary"
+          (click)="submit()"
+          *ngIf="currentStep === 2"
+          size="m"
+          class="tui-form__button"
+        >
+          Submit
         </button>
-      </tui-stepper>
+      </div>
+      Assurance: {{ form.value.Question1Details?.assuranceValue }}
+
+      Scope Value1: {{ form.value.Question1Details?.scopeValue1 }} Scope Value3:
+      {{ form.value.Question1Details?.scopeValue3 }}
+      Disclosure: {{ form.value.Question1Details!.disclosureValue }}
+      {{ this.resultsService.disclosureFile() | json }}
     </div>
-  </div>
-
-  <div class="tui-container p-12 mx-12 bg-white shadow md:grid-cols-3">
-    <div class="stepper flex justify-between">
-      <h1 class="mb-2 text-4xl text-gray-900 pl-4">
-        Emissions Data Verification
-      </h1>
-      <!-- For Loop would work but this specific component does not allow-->
-      <tui-stepper [activeItemIndex]="currentStep" #stepper>
-        <button tuiStep [disabled]="currentStep !== 0">
-          {{ steps[0].label }}
-        </button>
-
-        <button tuiStep [disabled]="currentStep !== 1">
-          {{ steps[1].label }}
-        </button>
-        <button tuiStep [disabled]="currentStep !== 2">
-          {{ steps[2].label }}
-        </button>
-        <button tuiStep [disabled]="currentStep !== 3">
-          {{ steps[3].label }}
-        </button>
-      </tui-stepper>
-    </div>
-
-    <app-emissions-question
-      *ngIf="currentStep === 0"
-      [Question1Details]="currentGroup"
-    >
-    </app-emissions-question>
-    <app-emissions-question
-      *ngIf="currentStep === 1"
-      [Question2Details]="currentGroup"
-    >
-    </app-emissions-question>
-    <app-emissions-confirm *ngIf="currentStep === 2" [form]="form">
-    </app-emissions-confirm>
-    <app-emissions-result
-      *ngIf="currentStep === 3"
-      [question1Results]="question1"
-      [question2Results]="question2"
-    >
-    </app-emissions-result>
-    <div class="tui-form__buttons tui-form__buttons_align_end">
-      <button
-        class="prev tui-form__button"
-        tuiButton
-        *ngIf="currentStep !== 0 && currentStep !== 3"
-        (click)="prev()"
-        size="m"
-      >
-        Previous
-      </button>
-      <button
-        tuiButton
-        size="m"
-        (click)="next()"
-        *ngIf="currentStep !== 2 && currentStep !== 3"
-        class="tui-form__button"
-      >
-        Next
-      </button>
-      <button
-        tuiButton
-        themeColor="primary"
-        (click)="submit()"
-        *ngIf="currentStep === 2"
-        size="m"
-        class="tui-form__button"
-      >
-        Submit
-      </button>
-    </div>
-    Assurance: {{ form.value.Question1Details?.assuranceValue }}
-
-    Scope Value1: {{ form.value.Question1Details?.scopeValue1 }} Scope Value3:
-    {{ form.value.Question1Details?.scopeValue3 }}
   </div>
 </div>

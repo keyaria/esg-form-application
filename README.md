@@ -2,6 +2,10 @@
 
 Take assessment on ESG standars and see results and all prior assessments
 
+## Live Site
+
+Site can be found here: https://esg-application-d0e55.web.app/
+
 ## Technical Stack
 
 - AngularJS
@@ -15,6 +19,9 @@ Take assessment on ESG standars and see results and all prior assessments
    - Compared to react it is more of a all in one solution which allows for quick developement and works great for dashboards. Combining this with typescript allows strict typing and easy ability to manipulate and show data.
 2. Firebase / FireStore
    - I made assumption that users would want to see all past results so instead of saving this in localStorage, FireStore provides a more optimal solution, while being scalable and easy to use. Firebase now handles all the infrastructure and the Backend Database.
+3. Deploying
+
+- To make it accessible for everyone, the site is hosted through Firebase Hosting. A deployment pipeline is set up so the site is built and deployed after merging a commit to the main branch.
 
 ## Assumptions
 
@@ -41,6 +48,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 - User Authentication
   This can be easily added using Firebase Auth Provider.
+- Localization
+  Adding the ability to switch between Japanese and English
 
 ## Development server
 
