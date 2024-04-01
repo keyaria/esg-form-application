@@ -1,12 +1,13 @@
-# EsgFormApplication
+# ESG Form Application
 
-Take assemention on ESG standars and see results and all prior assessments
+Take assessment on ESG standars and see results and all prior assessments
 
 ## Technical Stack
 
 - AngularJS
 - Typescript
 - Firebase / FireStore
+- TaigaUI and TailwindCSS
 
 ## Solution / Design Decisions
 
