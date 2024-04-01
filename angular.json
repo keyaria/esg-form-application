@@ -92,6 +92,23 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "esg-form-application:build:production",
+              "serveTarget": "esg-form-application:serve:production"
+            },
+            "development": {
+              "buildTarget": "esg-form-application:build:development",
+              "serveTarget": "esg-form-application:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

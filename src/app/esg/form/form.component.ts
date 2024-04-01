@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,6 +30,9 @@ import {
 import { EmissionsQuestionComponent } from './emissions-question/emissions-question.component';
 import { EmissionsConfirmComponent } from './emissions-confirm/emissions-confirm.component';
 import { EmissionsResultComponent } from './emissions-result/emissions-result.component';
+import { ResultsService } from '../../services/esgResult.service';
+import { ResultsFirebaseService } from '../../services/esgFirebase.service';
+import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-form',
@@ -65,6 +68,8 @@ export class FormComponent {
 
   public question1 = 0;
   public question2 = 0;
+  resultsService = inject(ResultsService);
+  resultsFirebaseService = inject(ResultsFirebaseService);
 
   @ViewChild('stepper', { static: true })
   public stepper!: TuiStepperComponent;
@@ -104,7 +109,9 @@ export class FormComponent {
     Question1Details: new FormGroup({
       verifierValue: new FormControl('', [Validators.required]),
       verifierValueText: new FormControl(''),
-      standardValue: new FormControl(''),
+      standardValue: new FormControl(false),
+      standardValueOther: new FormControl(false),
+      standardValueOtherText: new FormControl(''),
       assuranceValue: new FormControl(''),
       scopeValue1: new FormControl(false),
       scopeValue3: new FormControl(false),
@@ -114,7 +121,9 @@ export class FormComponent {
     Question2Details: new FormGroup({
       verifierValue: new FormControl('', [Validators.required]),
       verifierValueText: new FormControl(''),
-      standardValue1: new FormControl(''),
+      standardValue: new FormControl(false),
+      standardValueOther: new FormControl(false),
+      standardValueOtherText: new FormControl(''),
       assuranceValue: new FormControl(''),
       scopeValue1: new FormControl(false),
       scopeValue3: new FormControl(false),
@@ -141,23 +150,31 @@ export class FormComponent {
   }
 
   public submit(): void {
-    // if (!this.currentGroup.valid) {
-    //   this.currentGroup.markAllAsTouched();
-    //   // this.stepper.validateSteps();
-    // }
     if (this.form.valid) {
       console.log('Submitted data', this.form.value);
     }
     this.question1 = this.getPoints(this.form.value.Question1Details);
     this.question2 = this.getPoints(this.form.value.Question2Details);
 
+    this.addResult();
     this.currentStep += 1;
   }
-
-  public getPoints(values: any): number {
+  addResult(): void {
+    this.resultsFirebaseService
+      .addResult(this.form, this.question1, this.question2)
+      .subscribe((addedResultid) => {
+        this.resultsService.addResult(
+          this.form,
+          this.question1,
+          this.question2,
+          addedResultid,
+        );
+      });
+  }
+  getPoints(values: any): number {
     if (values.verifierValue === 'No' || values.disclosureValue === null) {
       return 0;
-    } else if (values.standardValue && values.assuranceValue!.length < 1) {
+    } else if (values.assuranceValue!.length === 0) {
       return 2;
     } else if (values.scopeValue1 === true) {
       return 3.5;

@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TuiArcChartModule } from '@taiga-ui/addon-charts';
-import { TuiLabelModule } from '@taiga-ui/core';
+import { TuiButtonModule, TuiLabelModule } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-emissions-result',
   standalone: true,
-  imports: [TuiArcChartModule, TuiLabelModule],
+  imports: [TuiArcChartModule, TuiLabelModule, TuiButtonModule, RouterModule],
   templateUrl: './emissions-result.component.html',
   styleUrl: './emissions-result.component.scss',
 })
-export class EmissionsResultComponent {
+export class EmissionsResultComponent implements OnInit {
   @Input()
   public question1Results: number;
 

@@ -2,46 +2,76 @@
   [formGroup]="Question1Details ? Question1Details : Question2Details"
 >
   <div class="tui-col_12">
-    <h3 class="tui-form__header">
-      Question {{ Question1Details ? 1 : 2 }}: Does the company obtain
-      independent, third-party verification for its emissions data? If so, to
-      what level of assurance?
+    <h3 class="text-lg pt-4">
+      Does the company obtain independent, third-party verification for its
+      emissions data? If so, to what level of assurance?
     </h3>
 
-    <div class="tui-form__row">
-      <h4 class="text-lg pb-3">
-        Verifier <span class="tui-required text-red-600"></span>:
-      </h4>
-      <tui-radio-labeled
-        formControlName="verifierValue"
-        class="tui-space_bottom-3"
-        item="Yes"
-        size="l"
-      >
-        Yes
-        <tui-input
-          formControlName="verifierValueText"
-          tuiHintContent="A tooltip"
+    <div class="tui-form__row grid grid-flow-col">
+      <div>
+        <h4 class="text-lg pb-3">
+          Verifier <span class="tui-required text-red-600"></span>:
+        </h4>
+        <tui-radio-labeled
+          formControlName="verifierValue"
+          class="tui-space_bottom-3"
+          item="Yes"
+          size="l"
         >
-          If Yes, who:
+          Yes
+          <tui-input
+            formControlName="verifierValueText"
+            tuiHintContent="A tooltip"
+            tuiTextFieldSize="s"
+            tuiTextfieldCleaner="true"
+            class="p-0"
+          >
+            If Yes, who:
 
-          <input placeholder="Field placeholder" tuiTextfield />
-        </tui-input>
-      </tui-radio-labeled>
-      <tui-radio-labeled
-        formControlName="verifierValue"
-        class="tui-space_bottom-3"
-        item="No"
-        size="l"
-      >
-        No
-      </tui-radio-labeled>
+            <input placeholder="Field placeholder" tuiTextfield />
+          </tui-input>
+        </tui-radio-labeled>
+        <tui-radio-labeled
+          formControlName="verifierValue"
+          class="tui-space_bottom-3"
+          item="No"
+          size="l"
+        >
+          No
+        </tui-radio-labeled>
 
-      <tui-error
-        formControlName="verifierValue"
-        [error]="[] | tuiFieldError | async"
-      ></tui-error>
+        <tui-error
+          formControlName="verifierValue"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+      <!-- Verification Standard-->
+      <div>
+        <p class="text-lg pb-3">Verification Standard:</p>
+        <tui-checkbox-labeled formControlName="standardValue" size="l">
+          ISO 14064-3
+        </tui-checkbox-labeled>
+        <tui-checkbox-labeled
+          formControlName="standardValueOther"
+          size="l"
+          class="tui-space_top-5"
+        >
+          <p>
+            Other
+            <tui-input
+              formControlName="standardValueOtherText"
+              tuiHintContent="A tooltip"
+              tuiTextFieldSize="s"
+            >
+              If Other, what standard:
+
+              <input placeholder="Field placeholder" tuiTextfield />
+            </tui-input>
+          </p>
+        </tui-checkbox-labeled>
+      </div>
     </div>
+
     <!-- Assurance Level-->
     <label>
       <p class="text-lg">Assurance Level</p>
@@ -112,7 +142,6 @@
           [error]="['maxLength'] | tuiFieldError | async"
           [formControl]="control"
         ></tui-error>
-        <!-- here: {{control | json }} -->
       </div>
     </label>
   </div>

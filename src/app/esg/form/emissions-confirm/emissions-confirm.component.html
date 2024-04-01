@@ -1,6 +1,18 @@
 <div>
+  <h3>Question 1</h3>
   <p class="text-gray-800 text-bold">
-    Verifier: {{ form.value.Question1Details.verifierValue }}
+    Verifier:
+    {{
+      form.value.Question1Details.verifierValue.length !== 0
+        ? form.value.Question1Details.verifierValue
+        : "None"
+    }}
+    {{ form.value.Question1Details.verifierValueText }}
+  </p>
+  <p class="text-gray-800 text-bold">
+    Verification Standard : {{ form.value.Question1Details.standardValue }}
+    {{ form.value.Question1Details.standardValueOther }}
+    {{ form.value.Question1Details.standardValueOtherText }}
   </p>
   <p class="text-gray-800 text-bold">
     Assurance Level: {{ form.value.Question1Details.assuranceValue }}

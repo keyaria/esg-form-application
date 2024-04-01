@@ -38,6 +38,7 @@ import { Observable, Subject, finalize, map, of, switchMap, timer } from 'rxjs';
     ReactiveFormsModule,
     TuiRadioLabeledModule,
     TuiCheckboxLabeledModule,
+    ReactiveFormsModule,
     TuiSelectModule,
     TuiDataListModule,
     TuiDataListWrapperModule,

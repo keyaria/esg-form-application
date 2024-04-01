@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "esg-application-d0e55": {
+      "hosting": {
+        "esg-form-application": [
+          "esg-application-d0e55"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "esg-application-d0e55"
+  }
+}

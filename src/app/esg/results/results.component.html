@@ -1,17 +1,58 @@
-<div class="container mx-auto flex flex-col justify-center h-full">
-  <h1 class="mb-2 text-7xl font-medium text-gray-900 pl-4">ESG Results</h1>
-  <p class="mb-10 pl-4">
-    Take the ESG Questionarre to discover your companies ESG rating
-  </p>
+<div class="container mx-auto flex flex-col mt-36 h-full">
+  <div class="grid md:grid-cols-4 md:grid-flow-col pb-8 px-4">
+    <div class="col-span-3">
+      <h1 class="mb-2 text-7xl font-medium text-gray-900">ESG Results</h1>
 
-  <div *ngIf="!esgResults" class="flex flex-col items-center space-y-6">
+      <p class="mb-10">
+        Take the ESG Questionarre to discover your companies ESG rating
+      </p>
+    </div>
+    <button
+      icon="tuiIconPlus"
+      tuiButton
+      size="s"
+      [routerLink]="['/form']"
+      class="m-auto"
+    >
+      Take Questionare
+    </button>
+  </div>
+  <div *ngIf="!todos" class="flex flex-col items-center space-y-6">
     <h2 class="text-xl">No Results</h2>
     <div class="bg-gray-100 w-32 h-32 rounded-full">
       <tui-svg src="tuiIconAddRowLarge"></tui-svg>
     </div>
 
-    <button tuiButton size="m" [routerLink]="['/form']">
+    <button tuiButton size="l" [routerLink]="['/form']">
       Take Questionare
     </button>
+  </div>
+  <div *ngIf="todos" class="flex flex-col items-center space-y-6">
+    <tui-accordion class="container">
+      <tui-accordion-item
+        borders="top-bottom"
+        [showArrow]="false"
+        *ngFor="let todo of todos"
+      >
+        <span class="flex justify-between">
+          <p>{{ todo.date.seconds * 1000 | date }}</p>
+          <p>Score: {{ todo.score?.total }}</p>
+        </span>
+        <ng-template tuiAccordionItemContent>
+          <h3 class="tui-form__header">Detailed Results</h3>
+          <div>
+            <h3>Question 1</h3>
+            <p>Verifier: {{ todo.question1.verifier }}</p>
+            <p>
+              Verification Standard: {{ todo.question1.verificationStandard }}
+            </p>
+            <p>Assurance Level: {{ todo.question1.assuranceLevel }}</p>
+            <p>Scope Verified: {{ todo.question1.scopeVerified }}</p>
+            <p>Disclosure: {{ todo.question1.disclosure }}</p>
+          </div>
+          <p>{{ todos[0] | json }}</p>
+        </ng-template>
+      </tui-accordion-item>
+    </tui-accordion>
   </div>
 </div>
