@@ -18,4 +18,5 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESG_APPLICATION_D0E55 }}"
           channelId: live
           projectId: esg-application-d0e55
+        env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
